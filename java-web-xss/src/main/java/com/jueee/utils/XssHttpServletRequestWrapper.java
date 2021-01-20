@@ -1,12 +1,12 @@
 package com.jueee.utils;
 
 import lombok.extern.slf4j.Slf4j;
-        import org.apache.commons.lang3.StringUtils;
-        import org.jsoup.Jsoup;
-        import org.jsoup.safety.Whitelist;
+import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 
-        import javax.servlet.http.HttpServletRequest;
-        import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 /**
  * xss过滤包装类
