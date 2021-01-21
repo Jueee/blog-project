@@ -68,8 +68,10 @@ public class BookListener extends AnalysisEventListener<Book> {
      */
     private void saveData() {
         log.info("{}条数据，开始存储数据库！", list.size());
-        list.forEach(t->log.info(t.toString()));
-//        list.forEach(t->bookMapper.insert(t));
+        list.forEach(t->{
+            t.setId(null);
+            bookMapper.insert(t);
+        });
         log.info("存储数据库成功！");
     }
 }

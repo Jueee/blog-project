@@ -9,10 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,7 +51,9 @@ public class BookController {
 
     @PostMapping("uploadBooks")
     @ResponseBody
-    public String uploadBooks(MultipartFile file) throws IOException {
+    public String uploadBooks(HttpServletRequest request, @RequestParam(value = "file") MultipartFile file) throws IOException {
+        log.info("init uploadBooks...");
+        log.info(file.getOriginalFilename());
         EasyExcel.read(file.getInputStream(), Book.class, new BookListener(bookMapper)).sheet().doRead();
         return "success";
     }
