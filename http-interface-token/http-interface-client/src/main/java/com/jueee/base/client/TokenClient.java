@@ -14,8 +14,9 @@ public class TokenClient {
     public final static String APP_ID = "2";
     public final static String APP_KEY = "22222222222222";
 
-    public static void getCommon(Map<String, String> paramMap) {
-        String res = test_API_TOKEN();
+    public static void addCommonParam(Map<String, String> paramMap) {
+        // 获取 token 请求结果：
+        String res = get_API_TOKEN();
         if (res == null) {
             return;
         }
@@ -23,10 +24,11 @@ public class TokenClient {
         if (jsonObject.getJSONObject("data") == null) {
             return;
         }
-        long timestamp = System.currentTimeMillis();
-        String nonce = UUID.randomUUID().toString();
+        // 从结果中，获取token信息
         String token = jsonObject.getJSONObject("data").getString("token");
         paramMap.put("token", token);
+        long timestamp = System.currentTimeMillis();
+        String nonce = UUID.randomUUID().toString();
         paramMap.put("timestamp", String.valueOf(timestamp));
         paramMap.put("nonce", nonce);
         // 请求参数 + APP_KEY + token + timestamp + nonce
@@ -39,13 +41,13 @@ public class TokenClient {
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("username", "1");
         paramMap.put("password", "123456");
-        getCommon(paramMap);
+        addCommonParam(paramMap);
         System.out.println(paramMap);
         String res = HttpClientUtil.doPost(USER_TOKEN, paramMap);
         System.out.println(res);
     }
 
-    public static String test_API_TOKEN() {
+    public static String get_API_TOKEN() {
         Map<String, String> paramMap = new HashMap<>();
         long timestamp = System.currentTimeMillis();
         paramMap.put("appId", APP_ID);
